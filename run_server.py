@@ -50,9 +50,7 @@ if __name__ == "__main__":
 	print("* Please wait until server has fully started...")
 	
 	print("* run app")
-	# run the app
-	app.run()
-	
+
 	# get data
 	# columns -
 	# 	customerId: customer unique identifier
@@ -86,6 +84,8 @@ if __name__ == "__main__":
 	ggf = GammaGammaFitter(penalizer_coef = 0)
 	ggf.fit(analysisData["frequency"],analysisData["monetary_value"])
 		
+	# run the app
+	app.run()
 	
 	
 	
