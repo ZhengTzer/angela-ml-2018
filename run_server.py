@@ -49,11 +49,6 @@ if __name__ == "__main__":
 	print("* Loading ML model and Flask starting server...")
 	print("* Please wait until server has fully started...")
 	
-	print("* run app")
-	# run the app
-	app.run()
-	
-	
 	# get data
 	# columns -
 	# 	customerId: customer unique identifier
@@ -61,9 +56,9 @@ if __name__ == "__main__":
 	#	transactionAmount: amount spent
 	
 	print("* get data")
-	#data = pandas.read_csv("sample_transactions.csv")
-	data = pandas.read_json(baseURL + "/api/transactions")
-	data = data.drop(columns="_id")
+	data = pandas.read_csv("sample_transactions.csv")
+	#data = pandas.read_json(baseURL + "/api/transactions")
+	#data = data.drop(columns="_id")
 	
 	print("* prepare data")
 	# prepare and shaping the data
@@ -87,3 +82,8 @@ if __name__ == "__main__":
 	ggf = GammaGammaFitter(penalizer_coef = 0)
 	ggf.fit(analysisData["frequency"],analysisData["monetary_value"])
 		
+	
+	print("* run app")
+	# run the app
+	app.run()
+	
