@@ -49,6 +49,10 @@ if __name__ == "__main__":
 	print("* Loading ML model and Flask starting server...")
 	print("* Please wait until server has fully started...")
 	
+	print("* run app")
+	# run the app
+	app.run()
+	
 	# get data
 	# columns -
 	# 	customerId: customer unique identifier
@@ -83,7 +87,5 @@ if __name__ == "__main__":
 	ggf.fit(analysisData["frequency"],analysisData["monetary_value"])
 		
 	
-	print("* run app")
-	# run the app
-	app.run()
+	
 	
