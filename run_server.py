@@ -54,9 +54,9 @@ if __name__ == "__main__":
 	#	transactionDate: date of transaction
 	#	transactionAmount: amount spent
 	
-	#data = pandas.read_json(baseURL + "/api/transactions")
-	data = pandas.read_csv("sample_transactions.csv")
-	#data = data.drop(columns="_id")
+	#data = pandas.read_csv("sample_transactions.csv")
+	data = pandas.read_json(baseURL + "/api/transactions")
+	data = data.drop(columns="_id")
 	
 	# prepare and shaping the data
 	# columns -
