@@ -49,16 +49,23 @@ if __name__ == "__main__":
 	print("* Loading ML model and Flask starting server...")
 	print("* Please wait until server has fully started...")
 	
+	print("* run app")
+	# run the app
+	app.run()
+	
+	
 	# get data
 	# columns -
 	# 	customerId: customer unique identifier
 	#	transactionDate: date of transaction
 	#	transactionAmount: amount spent
 	
+	print("* get data")
 	#data = pandas.read_csv("sample_transactions.csv")
 	data = pandas.read_json(baseURL + "/api/transactions")
 	data = data.drop(columns="_id")
 	
+	print("* prepare data")
 	# prepare and shaping the data
 	# columns -
 	#   customerId
@@ -74,10 +81,9 @@ if __name__ == "__main__":
 	# filter the customer data that has no transaction
 	analysisData = summaryData[summaryData["frequency"]>0]
 	
+	print("* train model")
 	# using lifetimes - Gamma-Gamma submodel
 	# train the model using purchase frequency (correlated to monetary value) 
 	ggf = GammaGammaFitter(penalizer_coef = 0)
 	ggf.fit(analysisData["frequency"],analysisData["monetary_value"])
 		
-	# run the app
-	app.run()
