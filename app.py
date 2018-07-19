@@ -15,6 +15,7 @@ import pandas
 import datetime
 
 baseURL = "http://ancient-river-10489.herokuapp.com"
+global analysisData
 
 # initialize our Flask application
 app = flask.Flask(__name__)
@@ -77,7 +78,7 @@ if __name__ == "__main__":
 					monetary_value_col="transactionAmount", 
 					observation_period_end=today)
 	# filter the customer data that has no transaction
-	global analysisData
+	
 	analysisData = summaryData[summaryData["frequency"]>0]
 	
 	print("* train model")
