@@ -8,8 +8,6 @@ from lifetimes.utils import calibration_and_holdout_data
 from lifetimes import GammaGammaFitter
 
 import numpy
-import flask
-import tensorflow
 import json
 import pandas
 import datetime
