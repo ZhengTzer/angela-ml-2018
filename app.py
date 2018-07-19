@@ -26,7 +26,7 @@ def index():
 @app.route("/predictSpending/<customerId>", methods=["GET"])
 def predictSpending(customerId):
 	# initialize the data dictionary that will be returned 
-	data = {"success": False, "result": {"customerId": "", "y":0} }
+	data = {"success": False, "result": {"customerId": "", "y":0.0} }
 	
 	# ensure the customer ID was properly uploaded to our endpoint
 	if customerId:		
