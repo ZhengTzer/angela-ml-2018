@@ -60,11 +60,9 @@ def predictSpending(customerId):
 		
 		# estimate the average transaction amount
 		predict = ggf_loaded.conditional_expected_average_profit(customer["frequency"], customer['monetary_value'])
+		
 		# add the input and predicted output to the return data
-		result={"customerId": customerId, "y":predict}
-		data["result"] = result		
-		# indicate that the request was a success
-		data["success"] = True
+		data = {"success": True, "result": {"customerId": customerId, "y":predict} }
 
 	# return the data dictionary as a JSON response
 	return flask.jsonify(data)
