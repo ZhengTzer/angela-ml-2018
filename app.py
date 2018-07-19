@@ -15,10 +15,44 @@ import pandas
 import datetime
 
 baseURL = "http://ancient-river-10489.herokuapp.com"
-global analysisData
 
 # initialize our Flask application
 app = flask.Flask(__name__)
+
+# get data
+# columns -
+# 	customerId: customer unique identifier
+#	transactionDate: date of transaction
+#	transactionAmount: amount spent
+
+print("* get data")
+data = pandas.read_csv("sample_transactions.csv")
+#data = pandas.read_json(baseURL + "/api/transactions")
+#data = data.drop(columns="_id")
+
+print("* prepare data")
+# prepare and shaping the data
+# columns -
+#   customerId
+# 	frequency : number of repeat purchase transactions
+#	recency: time (in days) between first purchase and latest purchase 
+#	T: time (in days) between first purchase and end of the period under study
+#	monetary_value: average transactions amount
+today = pandas.to_datetime(datetime.date.today())
+summaryData = summary_data_from_transaction_data(data, 
+				"customerId", "transactionDate", 
+				monetary_value_col="transactionAmount", 
+				observation_period_end=today)
+# filter the customer data that has no transaction
+
+analysisData = summaryData[summaryData["frequency"]>0]
+
+print("* train model")
+# using lifetimes - Gamma-Gamma submodel
+# train the model using purchase frequency (correlated to monetary value) 
+ggf = GammaGammaFitter(penalizer_coef = 0)
+ggf.fit(analysisData["frequency"],analysisData["monetary_value"])
+			
 
 @app.route("/")
 def index():
@@ -53,40 +87,7 @@ if __name__ == "__main__":
 	print("* Please wait until server has fully started...")
 
 
-	# get data
-	# columns -
-	# 	customerId: customer unique identifier
-	#	transactionDate: date of transaction
-	#	transactionAmount: amount spent
-	
-	print("* get data")
-	data = pandas.read_csv("sample_transactions.csv")
-	#data = pandas.read_json(baseURL + "/api/transactions")
-	#data = data.drop(columns="_id")
-	
-	print("* prepare data")
-	# prepare and shaping the data
-	# columns -
-	#   customerId
-	# 	frequency : number of repeat purchase transactions
-	#	recency: time (in days) between first purchase and latest purchase 
-	#	T: time (in days) between first purchase and end of the period under study
-	#	monetary_value: average transactions amount
-	today = pandas.to_datetime(datetime.date.today())
-	summaryData = summary_data_from_transaction_data(data, 
-					"customerId", "transactionDate", 
-					monetary_value_col="transactionAmount", 
-					observation_period_end=today)
-	# filter the customer data that has no transaction
-	
-	analysisData = summaryData[summaryData["frequency"]>0]
-	
-	print("* train model")
-	# using lifetimes - Gamma-Gamma submodel
-	# train the model using purchase frequency (correlated to monetary value) 
-	ggf = GammaGammaFitter(penalizer_coef = 0)
-	ggf.fit(analysisData["frequency"],analysisData["monetary_value"])
-				
+
 	print("* run app")
 	# run the app
 	app.run()	
