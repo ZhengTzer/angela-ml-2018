@@ -55,7 +55,7 @@ def predictSpending(customerId):
 		customer = analysisData.loc[customerId]
 		
 		# load model
-		ggf_loaded = BetaGeoFitter()
+		ggf_loaded = GammaGammaFitter()
 		ggf_loaded.load_model('ggf.pkl')
 		
 		# estimate the average transaction amount
