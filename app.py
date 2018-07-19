@@ -60,7 +60,7 @@ def predictSpending(customerId):
 		
 		# estimate the average transaction amount
 		predict = ggf_loaded.conditional_expected_average_profit(customer["frequency"], customer['monetary_value'])
-		print("#####PREDICT:" + predict)
+		print("#####PREDICT:" + str(predict))
 		# add the input and predicted output to the return data
 		result={"customerId": customerId, "y":predict}
 		data["result"] = result		
