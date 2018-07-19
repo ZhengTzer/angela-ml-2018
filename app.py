@@ -1,6 +1,6 @@
 # USAGE
 # Start the server:
-# 	python run_server.py
+# 	python app.py
 
 # import the necessary packages
 from lifetimes.utils import summary_data_from_transaction_data
@@ -20,6 +20,7 @@ baseURL = "http://ancient-river-10489.herokuapp.com"
 # initialize our Flask application
 app = flask.Flask(__name__)
 
+@app.route("/")
 @app.route("/predictSpending/<customerId>", methods=["GET"])
 def predictSpending(customerId):
 	# initialize the data dictionary that will be returned 
