@@ -54,8 +54,12 @@ def predictSpending(customerId):
 		# get the stat of the particular customer
 		customer = analysisData.loc[customerId]
 		
+		# load model
+		ggf_loaded = BetaGeoFitter()
+		ggf_loaded.load_model('ggf.pkl')
+		
 		# estimate the average transaction amount
-		predict = ggf.conditional_expected_average_profit(customer["frequency"], customer['monetary_value'])
+		predict = ggf_loaded.conditional_expected_average_profit(customer["frequency"], customer['monetary_value'])
 		# add the input and predicted output to the return data
 		result={"customerId": customerId, "y":predict}
 		data["result"] = result		
@@ -106,6 +110,9 @@ if __name__ == "__main__":
 	ggf = GammaGammaFitter(penalizer_coef = 0)
 	ggf.fit(analysisData["frequency"],analysisData["monetary_value"])
 		
+	# save model
+	ggf.save_model('ggf.pkl')
+	
 	# run the app
 	app.run()	
 	
