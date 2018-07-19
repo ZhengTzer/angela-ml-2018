@@ -21,6 +21,8 @@ baseURL = "http://ancient-river-10489.herokuapp.com"
 app = flask.Flask(__name__)
 
 @app.route("/")
+def index():
+    return "hello world"
 @app.route("/predictSpending/<customerId>", methods=["GET"])
 def predictSpending(customerId):
 	# initialize the data dictionary that will be returned 
@@ -49,8 +51,7 @@ def predictSpending(customerId):
 if __name__ == "__main__":
 	print("* Loading ML model and Flask starting server...")
 	print("* Please wait until server has fully started...")
-	
-	print("* run app")
+
 
 	# get data
 	# columns -
@@ -84,9 +85,8 @@ if __name__ == "__main__":
 	# train the model using purchase frequency (correlated to monetary value) 
 	ggf = GammaGammaFitter(penalizer_coef = 0)
 	ggf.fit(analysisData["frequency"],analysisData["monetary_value"])
-		
+				
+	print("* run app")
 	# run the app
-	app.run()
-	
-	
+	app.run()	
 	
