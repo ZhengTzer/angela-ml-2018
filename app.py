@@ -26,7 +26,7 @@ def index():
 @app.route("/predictSpending/<customerId>", methods=["GET"])
 def predictSpending(customerId):
 	# initialize the data dictionary that will be returned 
-	data = {"success": False, "result": {} }
+	data = {"success": False, "result": {"customerId": "", "y":0} }
 	
 	# ensure the customer ID was properly uploaded to our endpoint
 	if customerId:		
@@ -60,7 +60,6 @@ def predictSpending(customerId):
 		
 		# estimate the average transaction amount
 		predict = ggf_loaded.conditional_expected_average_profit(customer["frequency"], customer['monetary_value'])
-		print("#####PREDICT:" + str(predict))
 		# add the input and predicted output to the return data
 		result={"customerId": customerId, "y":predict}
 		data["result"] = result		
