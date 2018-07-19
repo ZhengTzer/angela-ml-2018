@@ -14,7 +14,6 @@ import json
 import pandas
 import datetime
 
-
 baseURL = "http://ancient-river-10489.herokuapp.com"
 
 # initialize our Flask application
